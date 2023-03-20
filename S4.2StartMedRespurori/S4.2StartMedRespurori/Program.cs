@@ -38,7 +38,7 @@ namespace S4._2StartMedRespurori
                             Console.WriteLine("Rite a nummber and i wil make a Recursion on it");
                             inputNummber = int.Parse(Console.ReadLine());
 
-                            Console.WriteLine(SimpleRecursion(inputNummber));
+                            Console.WriteLine(Recursion(inputNummber));
                             break;
 
                         case 2:
@@ -67,7 +67,7 @@ namespace S4._2StartMedRespurori
         }
 
         // Makes a Recursion on the nummber the user inputted
-        static int SimpleRecursion(int n)
+        static int Recursion(int n)
         {
             try
             {
@@ -75,7 +75,7 @@ namespace S4._2StartMedRespurori
                     return Math.Max(n, 1);
                 else // Recursive case 
                 {
-                    return n * SimpleRecursion(n - 1);
+                    return n * Recursion(n - 1);
                 }
             }
             catch (Exception) // theks if som thing goes wrong
@@ -83,6 +83,11 @@ namespace S4._2StartMedRespurori
 
                 throw;
             }
+        }
+
+        static int Fibonacci(int n)
+        {
+            return  0;
         }
 
 
