@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Pastel;
+using System;
+using System.IO;
 
 namespace S4._2StartMedRespurori
 {
@@ -6,9 +8,9 @@ namespace S4._2StartMedRespurori
     {
         // values
         #region
-        static int inputNummber;
+        static int _inputNummber;
 
-        static short whatTheUserWantsToDo;
+        static short _whatTheUserWantsToDo;
 
         static bool isRunning = true;
         #endregion
@@ -36,47 +38,44 @@ namespace S4._2StartMedRespurori
                         "\n Tipe the nummber of the thing you want to do" +
                         "\n (1):Factorial" +
                         "\n (2):finder dit tal i fabonacci " +
-                        "\n (3):Recursion" +
+                        "\n (3):Reads the name of evrithing ind the file" +
                         "\n (0):Quit");
                     // indtar brugerens walge
-                    whatTheUserWantsToDo = short.Parse(Console.ReadLine());
+                    _whatTheUserWantsToDo = short.Parse(Console.ReadLine());
 
                     // fjerner text så det ikke fylder skerm op
                     Console.Clear();
                     #endregion
 
-                    switch (whatTheUserWantsToDo)
+                    switch (_whatTheUserWantsToDo)
                     {
                         // Reacurson
                         case 1:
                             Console.WriteLine("Hello here we will take a nummber you write and times it with it self -1 and reapit ontil we get to 0");
                                 
 
-                            inputNummber = int.Parse(Console.ReadLine());
+                            _inputNummber = int.Parse(Console.ReadLine());
 
-                            Console.WriteLine($"\nThe number you get is: {Factorial(inputNummber)}");
+                            Console.WriteLine($"\nThe number you get is: {Factorial(_inputNummber)}");
                             break;
 
                         // Fibonacci
                         case 2:
                             Console.WriteLine("Rite a nummber and i wil check what nummber you getind a Fibonacci Shekvinse \n huske at Fibonathi gøre sårdan til at starte med 0 1 1 2 3 5 8 13 21 34" +
                                 "\n(User warning do not write a nummmber above 40)");
-                            inputNummber = int.Parse(Console.ReadLine());
+                            _inputNummber = int.Parse(Console.ReadLine());
 
-                            Console.WriteLine($" the nummber you get is: {Fibonacci(inputNummber)} \n if you go {inputNummber} rows fruge it");
+                            Console.WriteLine($" the nummber you get is: {Fibonacci(_inputNummber)} \n if you go {_inputNummber} rows fruge it");
 
                             // Tak til freija og philip
-                            for (int i = 1; i <= inputNummber; i++)
+                            for (int i = 1; i <= _inputNummber; i++)
                             {
                                 Console.Write(Fibonacci(i) + " " );
                             }
                             break;
 
                         case 3:
-                            Console.WriteLine("Write the path of a fille and i will print it out");
-                            inputNummber = int.Parse(Console.ReadLine());
-
-                            Console.WriteLine(FindNummerIFibonacci(inputNummber));   
+                            ReadFile(@"C:\Users\alex407b\Desktop\S\S4.2\S4.2Start");   
                             break;
 
                         case 0:
@@ -90,6 +89,7 @@ namespace S4._2StartMedRespurori
                     Console.WriteLine("Somthing vent wrong did you forget to put ind a nummber");
                 }
             }
+
         }
         #endregion
 
@@ -115,10 +115,33 @@ namespace S4._2StartMedRespurori
                 return Fibonacci(nummber - 1) + Fibonacci(nummber - 2);
         }
 
-        static int FindNummerIFibonacci(int nummber)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dir"></param>
+        private static void ReadFile(string dir)
         {
+            Console.WriteLine(dir.Pastel("#0098c4"));
+            // Sages the name of alle the filles ind the folder
+            string[] files = Directory.GetFiles(dir);
+            foreach (string f in files)
+            {
+                // removes the linke we usede to finde the fille so it lookes better
+                string removeUslesExtra = f.Remove(0, dir.Length);
+                Console.WriteLine("\t" +removeUslesExtra.Pastel("#91e6ff"));
+            }
 
-            return 0;
+            /// <summary>
+            /// takes all folderes/Directories if there are eni. 
+            /// and if there is it runs this methoed Agien and keaps doving it over and over agien ontel therer are no more folderes/Directories
+            /// </summary>
+            string[] dirs = Directory.GetDirectories(dir);
+            foreach (string d in dirs)
+            {
+                Console.WriteLine();
+                ReadFile(d);
+            }
+
         }
         #endregion
     }
